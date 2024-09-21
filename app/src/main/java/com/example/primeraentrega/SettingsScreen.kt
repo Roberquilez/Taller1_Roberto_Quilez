@@ -1,9 +1,10 @@
 package com.example.primeraentrega
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,13 +15,13 @@ import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SettingsScreen(navController: NavHostController, onColorChange: (Color) -> Unit) {
+fun SettingsScreen(navController: NavHostController, backgroundColor: MutableState<Color>) {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         content = {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(backgroundColor.value)
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -31,20 +32,20 @@ fun SettingsScreen(navController: NavHostController, onColorChange: (Color) -> U
                     Text(text = "Go to Home")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { onColorChange(Color.Red) }) {
-                    Text(text = "Red")
+                Button(onClick = { backgroundColor.value = Color.Red }) {
+                    Text(text = "Rojo")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { onColorChange(Color.Blue) }) {
-                    Text(text = "Blue")
+                Button(onClick = { backgroundColor.value = Color.Blue }) {
+                    Text(text = "Azul")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { onColorChange(Color.Yellow) }) {
-                    Text(text = "Yellow")
+                Button(onClick = { backgroundColor.value = Color.Yellow }) {
+                    Text(text = "Amarillo")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { onColorChange(Color.Green) }) {
-                    Text(text = "Green")
+                Button(onClick = { backgroundColor.value = Color.Green }) {
+                    Text(text = "Verde")
                 }
             }
         }
@@ -54,5 +55,6 @@ fun SettingsScreen(navController: NavHostController, onColorChange: (Color) -> U
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
-    SettingsScreen(rememberNavController()) {}
+    val backgroundColor = remember { mutableStateOf(Color.White) }
+    SettingsScreen(rememberNavController(), backgroundColor)
 }

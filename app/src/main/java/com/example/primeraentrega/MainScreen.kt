@@ -56,7 +56,7 @@ fun MainScreen(navController: NavHostController) {
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { navController.navigate("Ajustes") }) {
+                Button(onClick = { navController.navigate("settings") }) {
                     Text(text = "Ir a la pantalla de ajustes")
                 }
             }
