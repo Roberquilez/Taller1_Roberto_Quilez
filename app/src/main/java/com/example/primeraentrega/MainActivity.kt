@@ -31,6 +31,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun SettingsScreen(navController: NavHostController) {
+
+    }
 }
 
 @Composable
