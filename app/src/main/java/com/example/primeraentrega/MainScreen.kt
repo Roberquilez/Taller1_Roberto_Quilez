@@ -33,7 +33,7 @@ fun MainScreen(navController: NavHostController) {
                 TextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Enter your name") }
+                    label = { Text("Introduce tu nombre") }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
@@ -42,11 +42,11 @@ fun MainScreen(navController: NavHostController) {
                         name = ""
                     }
                 }) {
-                    Text(text = "Save Name")
+                    Text(text = "Nombre guardado")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { showList = !showList }) {
-                    Text(text = if (showList) "Hide Names" else "Show Names")
+                    Text(text = if (showList) "Esconder nombres" else "Mostrar nombres")
                 }
                 if (showList) {
                     LazyColumn {
@@ -56,8 +56,8 @@ fun MainScreen(navController: NavHostController) {
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = { navController.navigate("settings") }) {
-                    Text(text = "Go to Settings")
+                Button(onClick = { navController.navigate("Ajustes") }) {
+                    Text(text = "Ir a la pantalla de ajustes")
                 }
             }
         }
