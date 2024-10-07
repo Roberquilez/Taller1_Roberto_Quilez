@@ -42,7 +42,7 @@ fun MainScreen(navController: NavHostController) {
                         name = ""
                     }
                 }) {
-                    Text(text = "Nombre guardado")
+                    Text(text = "Guarda el nombre")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { showList = !showList }) {
