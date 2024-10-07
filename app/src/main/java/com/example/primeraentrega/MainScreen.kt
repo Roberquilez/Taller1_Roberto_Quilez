@@ -1,6 +1,7 @@
 package com.example.primeraentrega
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -15,13 +17,15 @@ import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen(navController: NavHostController, backgroundColor: MutableState<Color>) {
     var name by remember { mutableStateOf("") }
     var namesList by remember { mutableStateOf(listOf<String>()) }
     var showList by remember { mutableStateOf(false) }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor.value),
         content = {
             Column(
                 modifier = Modifier
@@ -67,5 +71,6 @@ fun MainScreen(navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen(rememberNavController())
+    val backgroundColor = remember { mutableStateOf(Color.White) }
+    MainScreen(rememberNavController(), backgroundColor)
 }

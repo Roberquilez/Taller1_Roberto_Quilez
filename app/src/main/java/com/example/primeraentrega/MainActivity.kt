@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,8 +28,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val backgroundColor = remember { mutableStateOf(Color.White) }
                 NavHost(navController, startDestination = "home") {
-                    composable("home") { HomeScreen(navController) }
-                    composable("main") { MainScreen(navController) }
+                    composable("home") { HomeScreen(navController, backgroundColor) }
+                    composable("main") { MainScreen(navController, backgroundColor) }
                     composable("settings") { SettingsScreen(navController, backgroundColor) }
                 }
             }
@@ -37,10 +38,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
-    val greeting = getGreeting()
+fun HomeScreen(navController: NavHostController, backgroundColor: MutableState<Color>) {
+    var greeting by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        GreetingAsyncTask { result ->
+            greeting = result
+        }.execute()
+    }
+
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor.value),
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -60,19 +70,11 @@ fun HomeScreen(navController: NavHostController) {
     )
 }
 
-fun getGreeting(): String {
-    val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-    return when (hour) {
-        in 0..11 -> "Buenos días"
-        in 12..17 -> "Buenas tardes"
-        else -> "Buenas noches"
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    val backgroundColor = remember { mutableStateOf(Color.White) }
     PrimeraEntregaTheme {
-        HomeScreen(rememberNavController())
+        HomeScreen(rememberNavController(), backgroundColor)
     }
 }
